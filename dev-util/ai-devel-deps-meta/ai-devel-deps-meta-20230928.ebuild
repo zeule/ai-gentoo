@@ -13,4 +13,7 @@ RDEPEND="
 	sci-libs/caffe2[cuda=]
 	sci-libs/pytorch
 	sci-libs/torchvision[cuda=]
+	dev-python/matplotlib
+	dev-python/natsort
+	dev-cpp/cli11
 "
