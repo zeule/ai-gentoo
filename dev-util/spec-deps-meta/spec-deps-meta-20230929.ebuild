@@ -13,5 +13,5 @@ RDEPEND="=dev-util/conan-1.59.0
 	sci-libs/mkl
 	dev-libs/c-blosc
 	sci-libs/ceres-solver
-	sci-libs/pytorch
+	sci-biology/imagej[plugins]
 "
