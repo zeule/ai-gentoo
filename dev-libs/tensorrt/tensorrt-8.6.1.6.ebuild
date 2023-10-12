@@ -21,6 +21,6 @@ src_install() {
 	insinto /opt/cuda/targets/x86_64-linux
 	doins -r include targets/x86_64-linux-gnu/lib
 
-	insinto /opt/cuda/bin
+	insinto /opt/cuda/
 	doins -r targets/x86_64-linux-gnu/bin
 }
