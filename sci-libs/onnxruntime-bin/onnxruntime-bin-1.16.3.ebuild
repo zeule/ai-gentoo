@@ -10,7 +10,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 RESTRICT="mirror test"
 
-RDEPEND="dev-util/nvidia-cuda-toolkit:0/11
+RDEPEND="dev-util/nvidia-cuda-toolkit:0/11.8.0
     dev-libs/cudnn:0/8
 "
 
