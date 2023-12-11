@@ -25,7 +25,7 @@ RDEPEND="
 		dev-python/numpy[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
-	=sci-libs/pytorch-2.0*[${PYTHON_SINGLE_USEDEP}]
+	>=sci-libs/pytorch-2[${PYTHON_SINGLE_USEDEP}]
 	sci-libs/torchvision[${PYTHON_SINGLE_USEDEP}]
 "
 DEPEND="${RDEPEND}"
