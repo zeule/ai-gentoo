@@ -14,6 +14,7 @@ RDEPEND="
 	sci-libs/pytorch
 	sci-libs/torchvision[cuda=]
 	sci-libs/torchinfo
+	sci-libs/onnxruntime-bin
 	dev-python/matplotlib
 	dev-python/natsort
 	dev-cpp/cli11
