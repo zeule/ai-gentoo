@@ -18,4 +18,7 @@ RDEPEND="
 	dev-python/matplotlib
 	dev-python/natsort
 	dev-cpp/cli11
+	x11-apps/mesa-progs
+	dev-util/vulkan-tools
+	dev-debug/strace
 "
