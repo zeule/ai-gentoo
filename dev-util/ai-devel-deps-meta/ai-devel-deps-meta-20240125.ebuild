@@ -14,11 +14,10 @@ RDEPEND="
 	sci-libs/pytorch
 	sci-libs/torchvision[cuda=]
 	sci-libs/torchinfo
-	sci-libs/onnxruntime-bin
 	dev-python/matplotlib
 	dev-python/natsort
 	dev-cpp/cli11
-	x11-apps/mesa-progs
-	dev-util/vulkan-tools
-	dev-debug/strace
+	cuda? ( dev-libs/tensorrt
+		|| ( sci-libs/onnxruntime[cuda] sci-libs/onnxruntime-bin )
+	)
 "
