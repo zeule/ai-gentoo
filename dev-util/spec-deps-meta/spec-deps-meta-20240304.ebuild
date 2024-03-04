@@ -17,4 +17,6 @@ RDEPEND="=dev-util/conan-1.59.0
         x11-apps/mesa-progs
         dev-util/vulkan-tools
         dev-debug/strace
+	media-gfx/inkscape
+	sci-libs/hdf5
 "
