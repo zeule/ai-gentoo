@@ -118,7 +118,7 @@ src_prepare() {
 	addpredict /dev/dri
 	addpredict /dev/nvidiactl
 
-    # fix build with gcc12(?), take idea from https://github.com/microsoft/onnxruntime/pull/11667 and https://github.com/microsoft/onnxruntime/pull/10014
+	# fix build with gcc12(?), take idea from https://github.com/microsoft/onnxruntime/pull/11667 and https://github.com/microsoft/onnxruntime/pull/10014
 	sed 's|dims)|TensorShape(dims))|g' \
 		-i onnxruntime/contrib_ops/cuda/quantization/qordered_ops/qordered_qdq.cc || die "Sed failed"
 
@@ -129,7 +129,7 @@ src_prepare() {
 
 	if use tensorrt; then
 		# Tensorrt 8.6 EA
-    	eapply "${FILESDIR}/15089.diff"
+	eapply "${FILESDIR}/15089.diff"
 
 		# Update Tensorboard 00d59e65d866a6d4b9fe855dce81ee6ba8b40c4f
     	sed -e 's|373eb09e4c5d2b3cc2493f0949dc4be6b6a45e81|00d59e65d866a6d4b9fe855dce81ee6ba8b40c4f|g' \
@@ -165,19 +165,25 @@ src_configure() {
 	append-cxxflags -Wno-dangling-reference -Wno-c++20-compat
 
 	local mycmakeargs=(
-		-DCMAKE_INSTALL_INCLUDEDIR="include/${PN}"
+		-DCMAKE_INSTALL_INCLUDEDIR="include"
+		-DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS
+		-DFETCHCONTENT_FULLY_DISCONNECTED=ON
+		-DFETCHCONTENT_QUIET=OFF
+		-DFETCHCONTENT_SOURCE_DIR_SAFEINT="${WORKDIR}/SafeInt-${SAFEINT_COMMIT}"
+		-DFETCHCONTENT_SOURCE_DIR_FLATBUFFERS="${WORKDIR}/flatbuffers-${FLATBUFFERS_PV}"
+		-DFETCHCONTENT_SOURCE_DIR_DATE="${WORKDIR}/date-${DATE_PV}"
 		-Donnxruntime_REQUIRE_PYTHON_EMBED_LIB=OFF
 		-Donnxruntime_USE_FULL_PROTOBUF=OFF
 		-Donnxruntime_ENABLE_LANGUAGE_INTEROP_OPS=OFF
 		-Donnxruntime_BUILD_SHARED_LIB=ON
 		-Donnxruntime_ENABLE_PYTHON=$(usex python)
 		-Donnxruntime_BUILD_BENCHMARKS=$(usex benchmark)
-	    -Donnxruntime_BUILD_UNIT_TESTS=$(usex test)
+		-Donnxruntime_BUILD_UNIT_TESTS=$(usex test)
 		-Donnxruntime_RUN_ONNX_TESTS=$(usex test)
-	    -Donnxruntime_ENABLE_LAZY_TENSOR=OFF
-    	-Donnxruntime_USE_MPI=$(usex mpi)
-    	-Donnxruntime_USE_PREINSTALLED_EIGEN=ON
-    	-Donnxruntime_USE_DNNL=$(usex onednn)
+		-Donnxruntime_ENABLE_LAZY_TENSOR=OFF
+		-Donnxruntime_USE_MPI=$(usex mpi)
+		-Donnxruntime_USE_PREINSTALLED_EIGEN=ON
+		-Donnxruntime_USE_DNNL=$(usex onednn)
 		-Donnxruntime_USE_CUDA=$(usex cuda)
 		-Donnxruntime_USE_ROCM=$(usex hip)
 		-Donnxruntime_USE_AVX=$(usex cpu_flags_x86_avx)
@@ -185,17 +191,11 @@ src_configure() {
 		-Donnxruntime_USE_AVX512=$(usex cpu_flags_x86_avx512)
 		-Donnxruntime_USE_MIMALLOC=$(usex mimalloc)
 		-Donnxruntime_USE_XNNPACK=$(usex xnnpack)
-      	-Donnxruntime_USE_NCCL=OFF # Multi GPU CUDA
+		-Donnxruntime_USE_NCCL=OFF # Multi GPU CUDA
 		-Donnxruntime_ENABLE_LTO=$(usex lto)
-	    -Donnxruntime_CUDA_HOME=/opt/cuda
-      	-Donnxruntime_CUDNN_HOME=/usr
-    	-Deigen_SOURCE_PATH=/usr/include/eigen3
-		-DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS
-		-DFETCHCONTENT_FULLY_DISCONNECTED=ON
-		-DFETCHCONTENT_QUIET=OFF
-		-DFETCHCONTENT_SOURCE_DIR_SAFEINT="${WORKDIR}/SafeInt-${SAFEINT_COMMIT}"
-		-DFETCHCONTENT_SOURCE_DIR_FLATBUFFERS="${WORKDIR}/flatbuffers-${FLATBUFFERS_PV}"
-		-DFETCHCONTENT_SOURCE_DIR_DATE="${WORKDIR}/date-${DATE_PV}"
+		-Donnxruntime_CUDA_HOME=/opt/cuda
+		-Donnxruntime_CUDNN_HOME=/usr
+		-Deigen_SOURCE_PATH=/usr/include/eigen3
 		-Donnxruntime_USE_TENSORRT=$(usex tensorrt)
 		-Donnxruntime_USE_JSEP=$(usex javascript)
 		-Donnxruntime_ENABLE_MEMORY_PROFILE=OFF
@@ -206,7 +206,6 @@ src_configure() {
 		-Donnxruntime_BUILD_JAVA=OFF
 		-Donnxruntime_BUILD_NODEJS=OFF
 		-Donnxruntime_BUILD_OBJC=OFF
-		-Donnxruntime_BUILD_SHARED_LIB=OFF
 		-Donnxruntime_BUILD_APPLE_FRAMEWORK=OFF
 		-Donnxruntime_USE_NNAPI_BUILTIN=OFF
 		-Donnxruntime_USE_RKNPU=OFF
@@ -276,9 +275,9 @@ src_configure() {
 			-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gccdir)"
 			-DCMAKE_CUDA_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS}"
     		-DCMAKE_CUDA_STANDARD_REQUIRED=ON
-    		-DCMAKE_CXX_STANDARD_REQUIRED=ON
-    		-Donnxruntime_NVCC_THREADS=1
-    	)
+			-DCMAKE_CXX_STANDARD_REQUIRED=ON
+			-Donnxruntime_NVCC_THREADS=1
+		)
 	fi
 
 	if use hip; then
