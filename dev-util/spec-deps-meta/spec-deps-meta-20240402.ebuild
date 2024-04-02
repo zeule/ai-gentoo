@@ -13,7 +13,6 @@ RDEPEND="=dev-util/conan-1.59.0
 	sci-libs/mkl
 	dev-libs/c-blosc
 	sci-libs/ceres-solver
-	sci-biology/imagej[plugins]
         x11-apps/mesa-progs
         dev-util/vulkan-tools
         dev-debug/strace
