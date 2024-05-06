@@ -83,6 +83,7 @@ BDEPEND="
 			dev-python/psutil[${PYTHON_USEDEP}]
 			dev-python/py-cpuinfo[${PYTHON_USEDEP}]
 		')
+		<=dev-libs/cpuinfo-2023.01.13
 	)
 "
 
@@ -132,13 +133,13 @@ src_prepare() {
 	eapply "${FILESDIR}/15089.diff"
 
 		# Update Tensorboard 00d59e65d866a6d4b9fe855dce81ee6ba8b40c4f
-    	sed -e 's|373eb09e4c5d2b3cc2493f0949dc4be6b6a45e81|00d59e65d866a6d4b9fe855dce81ee6ba8b40c4f|g' \
-        	-e 's|67b833913605a4f3f499894ab11528a702c2b381|ff427b6a135344d86b65fa2928fbd29886eefaec|g' \
-        	-i cmake/deps.txt || die sed "Sed failed"
+	sed -e 's|373eb09e4c5d2b3cc2493f0949dc4be6b6a45e81|00d59e65d866a6d4b9fe855dce81ee6ba8b40c4f|g' \
+		-e 's|67b833913605a4f3f499894ab11528a702c2b381|ff427b6a135344d86b65fa2928fbd29886eefaec|g' \
+		-i cmake/deps.txt || die sed "Sed failed"
 	    # Update onnx_tensorrt 6872a9473391a73b96741711d52b98c2c3e25146
-    	sed -e 's|369d6676423c2a6dbf4a5665c4b5010240d99d3c|6872a9473391a73b96741711d52b98c2c3e25146|g' \
-        	-e 's|62119892edfb78689061790140c439b111491275|75462057c95f7fdbc256179f0a0e9e4b7be28ae3|g' \
-        	-i cmake/deps.txt || die sed "Sed failed"
+	sed -e 's|369d6676423c2a6dbf4a5665c4b5010240d99d3c|6872a9473391a73b96741711d52b98c2c3e25146|g' \
+		-e 's|62119892edfb78689061790140c439b111491275|75462057c95f7fdbc256179f0a0e9e4b7be28ae3|g' \
+		-i cmake/deps.txt || die sed "Sed failed"
 	fi
 
 	strip-unsupported-flags
