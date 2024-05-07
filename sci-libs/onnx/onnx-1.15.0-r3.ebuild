@@ -26,14 +26,17 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 src_prepare() {
+	eapply "${FILESDIR}"/${P}-hidden.patch
 	cmake_src_prepare
 	distutils-r1_src_prepare
 }
 
-python_configure_all() {
+python_configure_all()
+{
 	mycmakeargs=(
 		-DONNX_USE_PROTOBUF_SHARED_LIBS=ON
 		-DONNX_USE_LITE_PROTO=ON
+		-DONNX_BUILD_SHARED_LIBS=ON
 		-DONNX_DISABLE_STATIC_REGISTRATION=$(usex static-schema-registration OFF ON)
 	)
 	cmake_src_configure
@@ -43,16 +46,18 @@ src_configure() {
 	distutils-r1_src_configure
 }
 
-python_compile_all() {
-	cmake_src_compile
-}
-
 src_compile() {
 	mycmakeargs=(
 		-DONNX_USE_PROTOBUF_SHARED_LIBS=ON
 		-DONNX_USE_LITE_PROTO=ON
+		-DONNX_BUILD_SHARED_LIBS=ON
+		-DONNX_DISABLE_STATIC_REGISTRATION=$(usex static-schema-registration OFF ON)
 	)
 	CMAKE_ARGS="${mycmakeargs[@]}" distutils-r1_src_compile
+}
+
+python_compile_all() {
+	cmake_src_compile
 }
 
 python_install_all() {
