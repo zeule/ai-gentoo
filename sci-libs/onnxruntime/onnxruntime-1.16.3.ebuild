@@ -56,7 +56,7 @@ BDEPEND="
 	sci-libs/pytorch
 	dev-libs/re2
 	dev-libs/protobuf:=
-	sci-libs/onnx:=
+	<sci-libs/onnx-1.16:=[-static-schema-registration(+)]
 	benchmark? ( dev-cpp/benchmark )
 	cuda? ( dev-util/nvidia-cuda-toolkit:= )
 	cudnn? ( dev-libs/cudnn:= )
