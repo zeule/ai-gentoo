@@ -53,7 +53,7 @@ BDEPEND="
 	dev-cpp/eigen:=[cuda?]
 	dev-cpp/ms-gsl:=
 	dev-cpp/nlohmann_json
-	sci-libs/pytorch
+	<sci-libs/pytorch-2.3
 	dev-libs/re2
 	dev-libs/protobuf:=
 	<sci-libs/onnx-1.16:=[-static-schema-registration(+)]
