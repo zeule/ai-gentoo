@@ -9,7 +9,7 @@ IUSE=""
 
 DEPEND=""
 
-RDEPEND="=dev-util/conan-1.59.0
+RDEPEND="<dev-util/conan-2
 	sci-libs/mkl
 	dev-libs/c-blosc
 	sci-libs/ceres-solver
